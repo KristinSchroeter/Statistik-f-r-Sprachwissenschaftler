@@ -80,6 +80,8 @@ print(weight.bw)
 # Aber viel interessanter ist eben, wenn wir Gruppen unterscheiden. Dann können etwas machen wie BW-Plot nach Geschlecht:
 #weight.bw.sex <- weight.grafik.basis + geom_boxplot(aes(x=sex,y=weight))
 #print(weight.bw.sex)
+weight.bw.sex <- weight.grafik.basis + geom_boxplot(aes(x=sex,y=weight))
+print(weight.bw.sex)
 
 # Und als Erinnerung können wir auch ähnliches mit der Dichte machen:
 #print( weight.grafik.basis + geom_density(aes(color=sex,fill=sex),alpha=0.5) )
