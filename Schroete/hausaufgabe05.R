@@ -118,10 +118,15 @@ print(alle.studiengang.bw)
 # sein, weil die Gruppen *unbalanziert* sind, d.h. die Gruppen sind
 # unterschiedlich groß. Aber wie sieht der Vergleich auf den ersten Blick aus?
 # (Keine explizite Antwort nötig, nur eine Überlegung.)
+# Auf den ersten Blick scheint es, als gäbe es die größte Streuung
+# im Studiengang der Klinischen Linguistik und die geringste im Studiengang
+# Speech Science.
 
 # Wir können natürlich auch die Dichte anschauen:
 #frauen.studiengang.dichte <- CODE_HIER
 #print(frauen.studiengang.dichte)
+frauen.studiengang.dichte <- ggplot(data=frauen,aes(x=major)) + geom_density(aes(x=height,color=major))
+print(frauen.studiengang.dichte)
 
 # Haben Sie den gleichen Eindruck wie bei Box-Whisker bekommen? Unterscheiden
 # sich die Gruppen?
