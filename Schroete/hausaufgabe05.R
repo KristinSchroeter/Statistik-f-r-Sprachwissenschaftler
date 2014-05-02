@@ -45,6 +45,7 @@ print(weight.grafik)
 weight.grafik.basis <- ggplot(data=dat,aes(x=weight))
 print(weight.grafik.basis + geom_histogram())
 #print(weight.grafik.basis + geom_density())
+print(weight.grafik.basis + geom_density())
 
 # Wir haben auch mal die qplot()-Funktion gesehen. Sie ergibt eigentlich das
 # Gleiche wie die "ggplot() + ..."-Befehle, hat nun eine andere Schnittstelle. 
