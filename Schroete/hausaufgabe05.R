@@ -105,9 +105,14 @@ frauen <- subset(dat,sex=="f")
 #falls Sie unsicher sind, ob das Bild korrekt aussieht.) Hier und im Folgenden
 #sollten Sie die Plots so machen, damit man einen Vergleich zwischen den Gruppen
 #ziehen kann. Dafür gibt es verschiedene Möglichkeiten; die Wahl bleibt Ihnen
-#überlassen. frauen.studiengang.bw <- CODE_HIER print(frauen.studiengang.bw)
+#überlassen.
+# frauen.studiengang.bw <- CODE_HIER print(frauen.studiengang.bw)
+# Frauen:
 frauen.studiengang.bw <- ggplot(data=frauen,aes(x=major)) + geom_boxplot(aes(x=major,y=height))
 print(frauen.studiengang.bw)
+# und alle:
+alle.studiengang.bw <- ggplot(data=dat,aes(x=major)) + geom_boxplot(aes(x=major,y=height))
+print(alle.studiengang.bw)
 
 # Sehen die Studiengänge anders aus? Wir müssen hier noch relativ vorrsichtig
 # sein, weil die Gruppen *unbalanziert* sind, d.h. die Gruppen sind
