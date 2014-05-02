@@ -85,6 +85,7 @@ print(weight.bw.sex)
 
 # Und als Erinnerung können wir auch ähnliches mit der Dichte machen:
 #print( weight.grafik.basis + geom_density(aes(color=sex,fill=sex),alpha=0.5) )
+print( weight.grafik.basis + geom_density(aes(color=sex,fill=sex),alpha=0.5) )
 
 # Aber jetzt haben wir uns Gewicht mehrmals angeschaut. Es wird Zeit, dass uns
 # auch Größe anschauen. Sind die Studenten mancher Studiengänge größer als die anderen?
