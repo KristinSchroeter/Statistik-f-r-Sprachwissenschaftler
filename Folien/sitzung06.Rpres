@@ -203,6 +203,7 @@ Beispiel: Münzwurf
 ===================
 1. Wie wahrscheinlich ist es, beim fünfmaligen Münzwurf das Ereignis $A =
 {(K,Z,K,K,Z)}$ zu erhalten?
+2 Möglichkeiten, 5 Stellen = 2^5 = 32
   - dieses Ereignis kommt im Ereignisraum nur einmal vor, daher: P(A) =
 1/32 = `r 1/32` = `r 1/32 * 100`%
 
