@@ -85,14 +85,23 @@ for(s in c(3,4,5) ){
 Aber wir hoffen alle, dass wir doch eine gute Note bekommen. Fügen Sie einen Code-Block hier ein, der das gleiche aber mit "ausgezeichneten" Noten (=1 bzw. >= 13) macht. (Bei evtl. Copy-Paste nicht vergessen, "fallen...durch" durch etwas Passendes zu ersetzen!)  
 
 code_block_hier
+```{r}
+for(s in c(3,4,5)){
+bestehen <- pnorm(13,mean=mu,sd=s,lower.tail=FALSE)
+output <- paste("Bei einer Standardabweichung von",s,"werden", bestehen*100,"% mit der Note 'sehr gut' bestehen.")
+print(output)
+}
+```
 
 Wie steht die Anzahl guter Noten in Beziehung zur Anzahl schlechter Noten? 
 
 antwort_hier
+Es bestehen leider mehr Studenten nicht.
 
 Warum?
 
 antwort_hier
+Sehr gute Noten gehen von 13 bis 15. Durchfallen kann man schon an 5 bis 0. Die "Chance", eine schlechtere Note zu bekommen, ist demnach höher.
 
 ## Kurtosis und Schiefe
 Kurtosis (im Deutschen auch *Wölbung*) ist ein Maß dafür, wie spitz eine Verteilung ist. Die Normalverteilung wird nie zu extrem spitz -- der Gipfel bleibt immer schön rund, obwohl er manchmal eng wird. Andere Verteilungen (z.B. die Laplace-Verteilung ) haben Gipfel, die nicht rund sind.   
@@ -102,6 +111,8 @@ Schiefe (*skewness*) beschriebt die (A)Symmetrie einer Verteilung. Eine Verteilu
 Die Verteilung von Noten ist oft schief mit mehr guten Noten. Ist die Verteilung rechts- oder linksschief?
 
 antwort_hier
+Die Verteilung ist linksschief, da die linke Seite "beiter" ist, d.h. der Gipfel sich auf der rechten Seite befindet.
+Aber ich habe bei anderen gelesen, dass sie rechtsschief sein soll?! Denk ich verkehrtherum? Mein Gipfel liegt definitiv rechts bei den guten Noten und ist breiter bei den schlechteren Noten - also ist es doch laut Beschreibung linksschief...
 
 Vielleicht hilft folgende Grafik mit der Visualisierung:
 
@@ -133,14 +144,20 @@ Beantworten Sie ein paar Fragen über die Verteilung, indem Sie den passenden R-
 2. Wie viele Studenten bekommen zumindest 10 NP?
 
     `code_hier` Studenten bekommen zumindest 10 Notenpunkte.
+    `r pnorm(10,mean=mu,sd=3) * n` Studenten bekommen zumindest 10 Notenpunkte.
+    zumindest 10?!
 
 3. Wie viele Studenten bekommen weniger als 10 NP?
 
     `code_hier` Studenten bekommen weniger als 10 Notenpunkte.
+    `r pnorm(9,sd=3,mean=mu) * n` Studenten bekommen weniger als 10 Notenpunkte.
+    oder mit 10 statt 9?!
 
 4. Wie viele Studenten bekommen weniger als 8 NP?
 
     `code_hier` Studenten bekommen weniger als 8 Notenpunkte.
+    `r pnorm(7,sd=3,mean=mu) * n` Studenten bekommen weniger als 8 Notenpunkte.
+    oder mit 8 statt 7?!
 
 
 (Die Einrückung mit 4 Leerschlägen ist die Syntax für mehrere Absätze pro Punkt auf der Liste.)
@@ -153,13 +170,16 @@ Um überdurchschnittlich zu sein, muss man mehr als `r qnorm(0.5,mean=mu,sd=3)` 
 Nicht so überraschend, dass "überdurchschnittlich" auch "mehr Punkte als den Durchschnitt bekommen" heißt! Wie sieht es aus, wenn wir besser als 99% der anderen abschließen möchten?
 
 Um in dem besten 1% abzuschließen, muss man zumindest `code_hier` Notenpunkte bekommen.
+Um in dem besten 1% abzuschließen, muss man zumindest `r qnorm(0.99,mean=mu,sd=3)` Notenpunkte bekommen.
 
 ## z-Transformation
 Bei der Überprüfung der Lehrqualität scheint es der Verwaltung, dass ein gewisser Dozent andere Noten als andere Dozenten vergibt. Es wird entschieden, dass der Notenspiegel bei den Teilnehmern in einem von seinen Kursen getestet wird, um zu schauen, ob er sich von signifikant von der idealisierten Notenverteilung ($\mu=8,\sigma=3$) unterscheidet. Um zu zeigen, dass Gott $\alpha=0.06$ so viel liebt wie $\alpha=0.05$ `r citep("10.1037/0003-066X.44.10.1276")`, setzt die Verwaltung das Signikanzniveau auf 0.06. 
 
 Der kritische Wert für einen einseitigen $z$-Test ist `code_hier`.
+Der kritische Wert für einen einseitigen $z$-Test ist `r qnorm(0.94)`.
 
-Die kritischen Werte für einen zweiseitigen $z$-Test sind $\pm$`code_hier`.
+Die kritischen Werte für einen zweiseitigen $z$-Test sind $\pm$ `code_hier`.
+Die kritischen Werte für einen zweiseitigen $z$-Test sind $\pm$ `r qnorm(0.97)`.
 
 ### Gibt es einen Unterschied?
 Bei diesem Dozenten ist die Verwaltung wirklich unsicher, ob und was für einen Unterschied es geben könnte. (Welche Testart sollte man hier nutzen?)
