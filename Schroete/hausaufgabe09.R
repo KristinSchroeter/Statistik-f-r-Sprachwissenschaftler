@@ -124,7 +124,8 @@ print(shapiro2)
 if (shapiro2$p.value > 0.05){
 print("Shapiro's test insignifikant, die Daten sind normal verteilt.")
 }else{
-print("Shapiro's test signifikant, die Daten sind nicht normal verteilt.")}
+print("Shapiro's test signifikant, die Daten sind nicht normal verteilt.")
+}
 
 # Wir haben auch Transformationen bei schiefen Datenverteilungen angesprochen.
 # Die logaritmische Verteilung ist ziemlich beliebt bei Reaktionszeitsdaten.
@@ -154,7 +155,7 @@ print("F-Test signifikant, die Varianzen sind homogen.")
 lev.test2 <- leveneTest(rt$logRT ~ rt$subj)
 print(lev.test2)
 #
-**if (lev.test2$p.value > 0.05){** error: argument is of lenght zero
+if (lev.test2$`Pr(>F)`[1] > 0.05){
 print("Levene-Test insignifikant, die Varianzen sind homogen.")
 }else{
 print("Levene-Test signifikant, die Varianzen sind nicht homogen.")
