@@ -58,6 +58,8 @@ ggplot(diamonds,aes(x=carat,y=price,color=color)) + geom_point(alpha=0.3)
 ggplot(diamonds,aes(x=carat,y=price,color=color)) + geom_point() + facet_wrap(~color)
 ```
 
+
+
 # Interessante Fragestellung: Haben Schliff (Cut) und Karat (Carat) Einfluss auf den Preis eines Diamanten?
 
 #Plotten:
@@ -100,7 +102,7 @@ ggplot(diamonds, aes(x=carat,y=price,color=cut)) + geom_point(alpha=1)
 
 # Hier zeigt sich, dass der Schliff "fair" eher in den unteren Preissegmenten vertreten ist - der Schliff "ideal" vermehrt in den oberen.
 # Des Weiteren erkennt man, dass ein Diamant mit dem Schliff "fair" einen höheren Karatwert aufweisen muss, um den gleichen Preis erzielen zu können, wie ein Diamant mit dem Schliff "ideal"
-# Kurz:
+# Kurze Hypothese:
 # Schliff "fair" = hoher Preis = hohes Karat
 # Schliff "ideal" = hoher Preis = niedriges Karat
 
@@ -136,6 +138,21 @@ summary(lm(price~cut.numeric*carat,data=diamonds))
 # Der t-Wert für den Schliff beträgt -2.58 und ist somit signifikant.
 # Der t-Wert für das Karat beträgt 131.32 und ist somit ebenfalls signifikant.
 # Der t-Wert für das Zusammenspiel von Karat und Schliff beträgt 28.39 und ist ebenfalls signifikant.
+
+# Probieren wir doch auch noch die ANOVA aus:
+```{r}
+summary(aov(price~carat*cut,data=diamonds))
+```
+#summary(ANOVA(Auswirkungen auf ...~beeinflussende Variable1*beeinflussende Variable2,data=Datensatz))
+
+# Es zeigt sich, dass Karat den höchsten F-Wert hat mit 325002.5.
+# Schliff und auch das Zusammenspiel von Schliff und Karat zeigen jedoch auch signifikante F-Werte: cut = 683.5 und carat:cut = 247.7.
+
+# Auffällig ist, dass der Schliff bei der linearen Regression keinen sigifikanten Zusammenhang zum Preis eines Diamanten zeigte, jedoch bei der ANOVA einen hohen signifikanten Zusammenhang aufweist.
+# Karat zeigte hingegen sowohl bei der linearen Regression als auch bei ANOVA einen signifikanten Zusammenhang zum Preis eines Diamanten.
+# Das Zusammenspiel von Schliff und Karat auf den Preis eines Diamanten sind in beiden Analyse signifikant.
+
+# Die bereits erwähnte Hypothese, dass ein Schliff "fair" mit einem höheren Karatwert hinsichtlich des Preises augeglichen werden kann, gilt insofern als bestätigt, da der Einfluss des Schliffes auf den Preis eines Diamantene auch noch von anderen Faktoren anhängen müssen.
 
 
 
