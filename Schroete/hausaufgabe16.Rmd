@@ -40,9 +40,9 @@ Die Aufgabe ist: eine Ausgangsfrage und die darauf folgenden Anschlussfragen sta
 Mögliche Ausgangsfragen sind unter anderem:
 
 * Was bestimmt den Preis eines Diamanten?
-* Was bestimmt das Gewicht eines Diamanten? Hat Farbe oder Klarheit eine Auswirkung daruf oder bloß Volumen?
+* Was bestimmt das Gewicht eines Diamanten? Hat Farbe oder Klarheit eine Auswirkung darauf oder bloß Volumen?
 * Gibt es einen Zusammenhang zwischen den verschieden Dimensionen ("Längen")? 
-* Gibt es einen Zusammenhang zwischen Farbe und Klarheit? Zwischen Farbe und Carat? Zwischen Farbe und Tiefe?
+* Gibt es einen Zusammenhang zwischen Farbe und Klarheit? Zwischen Farbe und Karat? Zwischen Farbe und Tiefe?
 * ...
 
 *Vergessen Sie dabei nicht, dass wir bisher nur Methoden gelernt haben, wo die abhängige Variable zumindest intervallskaliert ist!*
@@ -57,6 +57,32 @@ ggplot(diamonds,aes(x=carat,y=price,color=color)) + geom_point()
 ggplot(diamonds,aes(x=carat,y=price,color=color)) + geom_point(alpha=0.3)
 ggplot(diamonds,aes(x=carat,y=price,color=color)) + geom_point() + facet_wrap(~color)
 ```
+
+# Interessante Fragestellung: Haben Schliff (Cut) und Karat (Carat) Einfluss auf den Preis eines Diamanten?
+
+#Plotten:
+
+# 1. Einfluss von Cut:
+```{r}
+ggplot(diamonds, aes(x=cut, y=price)) + geom_point()
+```
+# ggplot(Datensatz, aes(x-Achse=beeinflussende Variable, y-Achse=Auswirkungen auf ...)) + geom_point()
+
+# Hiermit wird gezeigt, dass augenscheinlich fast alle Preisklassen für die verschiedenen Schliffe (Cuts) verfügbar sind. Auffällig ist, dass bei der Preisklasse "fair" und auch bei "good" die oberen Preisklassen nicht leichmäßig vertreten sind, wie bei den anderen Schliffqualitäten (Cuts).
+
+# Für eine bessere Übersicht schauen wir uns die geometrische Dichteverteilung an.
+```{r}
+ggplot(data=diamonds) + geom_density(aes(x=price,color=cut,fill=cut),alpha=0.1)
+```
+# ggplot(data=Datensatz) + geom_density(aes(x=Auswirkungen auf ..., color=beeinflussende Variable,fill=beeinflussende Variable), alpha=Durchsichtigkeit)
+
+#Um den Einfluss des Schliffes auf die Preise der höheren Kategorien genauer beurteilen zu können, grenzen wir die Skalierung des Preises auf 10.000 bis 20.000 ein.
+```{r}
+ggplot(data=diamonds) + geom_density(aes(x=price,color=cut,fill=cut),alpha=0.1) + scale_x_continuous(limits=c(10000,20000))
+```
+#ggplot(wie oben) + scale_x_continuous(limits=c(Grenzen, eingeben))
+
+#Hier zeigt sich deutlich, dass die Dichte des Schliffes "fair" bei höheren Preissegmenten abnimmt und ab einer bestimmten Preiskategorie unter der Dichte der anderen Schliffe liegt.
 
 # Noch eine Überlegung
 Haben Sie dabei explorativ oder konfirmativ gearbeitet? Was hat das für eine Auswirkung auf die Interpretation der Ergebnisse?
