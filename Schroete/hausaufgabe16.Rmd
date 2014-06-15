@@ -60,9 +60,9 @@ ggplot(diamonds,aes(x=carat,y=price,color=color)) + geom_point() + facet_wrap(~c
 
 
 
-# Interessante Fragestellung: Haben Schliff (Cut) und Karat (Carat) Einfluss auf den Preis eines Diamanten?
+# Interessante Fragestellung: Haben Schliff (cut) und Karat (carat) Einfluss auf den Preis eines Diamanten?
 
-#Plotten:
+# Plotten:
 
 # 1. Einfluss von Schliff (cut):
 ```{r}
@@ -70,38 +70,40 @@ ggplot(diamonds, aes(x=cut, y=price)) + geom_point()
 ```
 # ggplot(Datensatz, aes(x-Achse=beeinflussende Variable, y-Achse=Auswirkungen auf ...)) + geom_point()
 
-# Hiermit wird gezeigt, dass augenscheinlich fast alle Preisklassen für die verschiedenen Schliffe (Cuts) verfügbar sind. Auffällig ist, dass bei der Preisklasse "fair" und auch bei "good" die oberen Preisklassen nicht leichmäßig vertreten sind, wie bei den anderen Schliffqualitäten (Cuts).
+# Hiermit wird gezeigt, dass augenscheinlich fast alle Preisklassen für die verschiedenen Schliffe (cuts) verfügbar sind. Auffällig ist, dass bei der Preisklasse "fair" und auch bei "good" die oberen Preisklassen nicht gleichmäßig wie bei den anderen Schliffqualitäten (cuts) vertreten sind.
 
-# Für eine bessere Übersicht schauen wir uns die geometrische Dichteverteilung an.
+# Für eine bessere Übersicht schauen wir uns die geometrische Dichteverteilung an:
 ```{r}
 ggplot(data=diamonds) + geom_density(aes(x=price,color=cut,fill=cut),alpha=0.1)
 ```
 # ggplot(data=Datensatz) + geom_density(aes(x=Auswirkungen auf ..., color=beeinflussende Variable,fill=beeinflussende Variable), alpha=Durchsichtigkeit)
 
-#Um den Einfluss des Schliffes auf die Preise der höheren Kategorien genauer beurteilen zu können, grenzen wir die Skalierung des Preises auf 10.000 bis 20.000 ein.
+# Um den Einfluss des Schliffes auf die Preise der höheren Kategorien genauer beurteilen zu können, grenzen wir die Skalierung des Preises auf 10.000 bis 20.000 ein.
 ```{r}
 ggplot(data=diamonds) + geom_density(aes(x=price,color=cut,fill=cut),alpha=0.1) + scale_x_continuous(limits=c(10000,20000))
 ```
-#ggplot(wie oben) + scale_x_continuous(limits=c(Grenzen, eingeben))
+# ggplot(wie oben) + scale_x_continuous(limits=c(Grenzen, eingeben))
 
-#Hier zeigt sich deutlich, dass die Dichte des Schliffes "fair" bei höheren Preissegmenten abnimmt und ab einer bestimmten Preiskategorie unter der Dichte der anderen Schliffe liegt.
+# Hier zeigt sich deutlich, dass die Dichte des Schliffes "fair" bei höheren Preissegmenten abnimmt und ab einer bestimmten Preiskategorie unter der Dichte der anderen Schliffe liegt.
 
 # 2. Einfluss von Karat (carat):
 ```{r}
 ggplot(diamonds, aes(x=carat,y=price,color=carat)) + geom_point()
 ```
-#ggplot(wie oben nur mit carat und Farbe)
+# ggplot(wie oben nur mit carat und Farbe)
 
-# Hieran erkennt man einen (noch nicht welchen) Zusammenhang zwischen dem Karat und dem Preis eines Diamanten. Wir können sehen, dass je höher das Karat eines Diamanten ist, der Preis eines Diamanten ansteigt. Es zeigt sich ein exponentieller Anstieg.
+# Hieran erkennt man einen Zusammenhang zwischen dem Karat und dem Preis eines Diamanten.
+# Wir können sehen, dass je höher das Karat eines Diamanten ist, der Preis eines Diamanten ansteigt.
+# Es zeigt sich ein exponentieller Anstieg.
 
-#Zusammenspiel mit Cut:
+# Zusammenspiel mit Schliff (cut):
 ```{r}
 ggplot(diamonds, aes(x=carat,y=price,color=cut)) + geom_point(alpha=1)
 ```
-#ggplot(als Farbe Schliff festgelegt) + geom_point(alpha=1)
+# ggplot(als Farbe Schliff festgelegt) + geom_point(alpha=1)
 
 # Hier zeigt sich, dass der Schliff "fair" eher in den unteren Preissegmenten vertreten ist - der Schliff "ideal" vermehrt in den oberen.
-# Des Weiteren erkennt man, dass ein Diamant mit dem Schliff "fair" einen höheren Karatwert aufweisen muss, um den gleichen Preis erzielen zu können, wie ein Diamant mit dem Schliff "ideal"
+# Des Weiteren erkennt man, dass ein Diamant mit dem Schliff "fair" einen höheren Karatwert aufweisen muss, um den gleichen Preis erzielen zu können, wie ein Diamant mit dem Schliff "ideal".
 # Kurze Hypothese:
 # Schliff "fair" = hoher Preis = hohes Karat
 # Schliff "ideal" = hoher Preis = niedriges Karat
@@ -114,17 +116,17 @@ ggplot(diamonds, aes(x=carat,y=price,color=cut)) + geom_point(alpha=1)
 diamonds$cut.numeric <- as.numeric(diamonds$cut)
 summary(lm(price~cut.numeric,data=diamonds))
 ```
-#diamonds(=unser Datensatz)$beeinflussede Variable.numeric <- as.numeric(Datensatz$beeinflussende Variable)
-#summary(lineares Model(Auswirkungen auf ...~beeinflussende Variable.numerisch,data=Datensatz))
+# Datensatz$beeinflussende Variable.numerisch <- as.numeric(Datensatz$beeinflussende Variable)
+# summary(lineare Regression(Auswirkungen auf ...~beeinflussende Variable.numerisch,data=Datensatz))
 
 # Das Bestimmtheitsmaß R^2 ist mit einem Wert von 0,003 sehr gering, demnach gibt es keinen linearen Zusammenhang zwischen dem Schliff und dem Preis eines Diamanten.
-# Grund hierfür könnte sein, dass sich die Unterschiede im Schliff durch andere Einflussfaktoren ausgleichen.
+# Hypothese: Grund hierfür könnte sein, dass sich die Unterschiede im Schliff durch andere Einflussfaktoren ausgleichen.
 
 # 2. Einfluss von Karat (carat):
 ```{r}
 summary(lm(price~carat,data=diamonds))
 ```
-#summary(wie oben nur mit carat)
+# summary(wie oben nur mit carat)
 
 # Hierbei zeigt sich, dass der Bestimmtheitswert R^2 mit 0,85 ziemlich hoch ist, demnach gibt es einen linearen Zusammenhang zwischen dem Karat und dem Preis eines Diamanten.
 
@@ -132,9 +134,9 @@ summary(lm(price~carat,data=diamonds))
 ```{r}
 summary(lm(price~cut.numeric*carat,data=diamonds))
 ```
-#summary(lm(Auswirkungen auf ...~beinflussende Variable1*beeinflussende Variable2,data=Datensatz))
+# summary(lm(Auswirkungen auf ...~beinflussende Variable1*beeinflussende Variable2,data=Datensatz))
 
-# Der Bestimmtheisgrad R^2 liegt jetzt bei 0,86.
+# Der Bestimmtheitswert R^2 liegt jetzt bei 0,86.
 # Der t-Wert für den Schliff beträgt -2.58 und ist somit signifikant.
 # Der t-Wert für das Karat beträgt 131.32 und ist somit ebenfalls signifikant.
 # Der t-Wert für das Zusammenspiel von Karat und Schliff beträgt 28.39 und ist ebenfalls signifikant.
@@ -143,16 +145,16 @@ summary(lm(price~cut.numeric*carat,data=diamonds))
 ```{r}
 summary(aov(price~carat*cut,data=diamonds))
 ```
-#summary(ANOVA(Auswirkungen auf ...~beeinflussende Variable1*beeinflussende Variable2,data=Datensatz))
+# summary(ANOVA(Auswirkungen auf ...~beeinflussende Variable1*beeinflussende Variable2,data=Datensatz))
 
-# Es zeigt sich, dass Karat den höchsten F-Wert hat mit 325002.5.
-# Schliff und auch das Zusammenspiel von Schliff und Karat zeigen jedoch auch signifikante F-Werte: cut = 683.5 und carat:cut = 247.7.
+# Es zeigt sich, dass Karat den höchsten F-Wert mit 325002.5 hat.
+# Der Schliff und auch das Zusammenspiel von Schliff und Karat zeigen jedoch auch signifikante F-Werte: cut = 683.5 und carat:cut = 247.7.
 
 # Auffällig ist, dass der Schliff bei der linearen Regression keinen sigifikanten Zusammenhang zum Preis eines Diamanten zeigte, jedoch bei der ANOVA einen hohen signifikanten Zusammenhang aufweist.
 # Karat zeigte hingegen sowohl bei der linearen Regression als auch bei ANOVA einen signifikanten Zusammenhang zum Preis eines Diamanten.
 # Das Zusammenspiel von Schliff und Karat auf den Preis eines Diamanten sind in beiden Analyse signifikant.
 
-# Die bereits erwähnte Hypothese, dass ein Schliff "fair" mit einem höheren Karatwert hinsichtlich des Preises augeglichen werden kann, gilt insofern als bestätigt, da der Einfluss des Schliffes auf den Preis eines Diamantene auch noch von anderen Faktoren anhängen müssen.
+# Die bereits erwähnte Hypothese, dass ein Schliff "fair" mit einem höheren Karatwert hinsichtlich des Preises ausgeglichen werden kann, gilt als bestätigt, da der Einfluss des Schliffes auf den Preis eines Diamanten auch noch von anderen Faktoren anhängen muss.
 
 
 
