@@ -62,7 +62,7 @@ ggplot(diamonds,aes(x=carat,y=price,color=color)) + geom_point() + facet_wrap(~c
 
 #Plotten:
 
-# 1. Einfluss von Cut:
+# 1. Einfluss von Schliff (cut):
 ```{r}
 ggplot(diamonds, aes(x=cut, y=price)) + geom_point()
 ```
@@ -84,7 +84,7 @@ ggplot(data=diamonds) + geom_density(aes(x=price,color=cut,fill=cut),alpha=0.1) 
 
 #Hier zeigt sich deutlich, dass die Dichte des Schliffes "fair" bei höheren Preissegmenten abnimmt und ab einer bestimmten Preiskategorie unter der Dichte der anderen Schliffe liegt.
 
-# 2. Einfluss von Carat:
+# 2. Einfluss von Karat (carat):
 ```{r}
 ggplot(diamonds, aes(x=carat,y=price,color=carat)) + geom_point()
 ```
@@ -103,6 +103,39 @@ ggplot(diamonds, aes(x=carat,y=price,color=cut)) + geom_point(alpha=1)
 # Kurz:
 # Schliff "fair" = hoher Preis = hohes Karat
 # Schliff "ideal" = hoher Preis = niedriges Karat
+
+# Versuchen wir die neu erlernte lineare Regression doch mal anzuwenden:
+
+# 1. Einfluss von Schliff (cut):
+# Die Variable "cut" ist nicht numerisch, deshalb transformieren wir sie erst:
+```{r}
+diamonds$cut.numeric <- as.numeric(diamonds$cut)
+summary(lm(price~cut.numeric,data=diamonds))
+```
+#diamonds(=unser Datensatz)$beeinflussede Variable.numeric <- as.numeric(Datensatz$beeinflussende Variable)
+#summary(lineares Model(Auswirkungen auf ...~beeinflussende Variable.numerisch,data=Datensatz))
+
+# Das Bestimmtheitsmaß R^2 ist mit einem Wert von 0,003 sehr gering, demnach gibt es keinen linearen Zusammenhang zwischen dem Schliff und dem Preis eines Diamanten.
+# Grund hierfür könnte sein, dass sich die Unterschiede im Schliff durch andere Einflussfaktoren ausgleichen.
+
+# 2. Einfluss von Karat (carat):
+```{r}
+summary(lm(price~carat,data=diamonds))
+```
+#summary(wie oben nur mit carat)
+
+# Hierbei zeigt sich, dass der Bestimmtheitswert R^2 mit 0,85 ziemlich hoch ist, demnach gibt es einen linearen Zusammenhang zwischen dem Karat und dem Preis eines Diamanten.
+
+# 3. Einfluss des Zusammenspiels von Karat und Schliff auf den Preis eines Diamanten:
+```{r}
+summary(lm(price~cut.numeric*carat,data=diamonds))
+```
+#summary(lm(Auswirkungen auf ...~beinflussende Variable1*beeinflussende Variable2,data=Datensatz))
+
+# Der Bestimmtheisgrad R^2 liegt jetzt bei 0,86.
+# Der t-Wert für den Schliff beträgt -2.58 und ist somit signifikant.
+# Der t-Wert für das Karat beträgt 131.32 und ist somit ebenfalls signifikant.
+# Der t-Wert für das Zusammenspiel von Karat und Schliff beträgt 28.39 und ist ebenfalls signifikant.
 
 
 
