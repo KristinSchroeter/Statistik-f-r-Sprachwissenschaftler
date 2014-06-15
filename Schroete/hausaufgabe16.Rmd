@@ -84,6 +84,28 @@ ggplot(data=diamonds) + geom_density(aes(x=price,color=cut,fill=cut),alpha=0.1) 
 
 #Hier zeigt sich deutlich, dass die Dichte des Schliffes "fair" bei höheren Preissegmenten abnimmt und ab einer bestimmten Preiskategorie unter der Dichte der anderen Schliffe liegt.
 
+# 2. Einfluss von Carat:
+```{r}
+ggplot(diamonds, aes(x=carat,y=price,color=carat)) + geom_point()
+```
+#ggplot(wie oben nur mit carat und Farbe)
+
+# Hieran erkennt man einen (noch nicht welchen) Zusammenhang zwischen dem Karat und dem Preis eines Diamanten. Wir können sehen, dass je höher das Karat eines Diamanten ist, der Preis eines Diamanten ansteigt. Es zeigt sich ein exponentieller Anstieg.
+
+#Zusammenspiel mit Cut:
+```{r}
+ggplot(diamonds, aes(x=carat,y=price,color=cut)) + geom_point(alpha=1)
+```
+#ggplot(als Farbe Schliff festgelegt) + geom_point(alpha=1)
+
+# Hier zeigt sich, dass der Schliff "fair" eher in den unteren Preissegmenten vertreten ist - der Schliff "ideal" vermehrt in den oberen.
+# Des Weiteren erkennt man, dass ein Diamant mit dem Schliff "fair" einen höheren Karatwert aufweisen muss, um den gleichen Preis erzielen zu können, wie ein Diamant mit dem Schliff "ideal"
+# Kurz:
+# Schliff "fair" = hoher Preis = hohes Karat
+# Schliff "ideal" = hoher Preis = niedriges Karat
+
+
+
 # Noch eine Überlegung
 Haben Sie dabei explorativ oder konfirmativ gearbeitet? Was hat das für eine Auswirkung auf die Interpretation der Ergebnisse?
 
